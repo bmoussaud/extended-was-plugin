@@ -1,0 +1,36 @@
+commonBuildPath = hasProperty("localCommonBuildRepo") ? file(localCommonBuildRepo).toURL().toString() : 'https://github.com/xebialabs/deployit-common-build/raw/master'
+apply from: "$commonBuildPath/repositories.gradle"
+apply from: "$commonBuildPath/plugin-build.gradle"
+
+version = '1.0-SNAPSHOT'
+apiVersion = '3.5.0'
+
+
+
+dependencies {
+        compile deps.overthere
+        compile "com.xebialabs.deployit:udm-plugin-api:$apiVersion"
+        compile "com.xebialabs.deployit.plugins:was-plugin:$apiVersion"
+        compile "com.xebialabs.deployit.plugins:overthere-plugin:$apiVersion"
+        compile "com.xebialabs.deployit.plugins:jee-plugin:$apiVersion"
+        compile "com.xebialabs.deployit.plugins:python-plugin:$apiVersion"
+        compile deps.velocity
+        compile deps.guava
+        compile deps.overthere
+        compile deps.spring_core
+        compile deps.commons_lang, deps.commons_io, deps.commons_collections, deps.commons_beanutils
+        runtime "com.xebialabs.deployit:doc-generator:${apiVersion}"
+        testCompile "com.xebialabs.deployit:udm-test-support:$apiVersion"
+        testCompile deps.hamcrest_all
+        testCompile deps.itest_support
+        testCompile deps.spring_beans
+
+}
+
+def excludeFromAll(project, group, module) {
+        project.afterEvaluate { evaluatedProject ->
+                evaluatedProject.configurations.all*.getDependencies(ModuleDependency)*.each {
+                        it.exclude group: group, module: module
+                }
+        }
+}

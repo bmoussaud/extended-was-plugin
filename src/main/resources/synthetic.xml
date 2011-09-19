@@ -1,0 +1,12 @@
+<synthetic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.xebialabs.com/deployit/synthetic" xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
+
+    <!--============== Datasources ============= -->
+    <type-modification type="was.Datasource">
+        <property name="additionalPropertiesNotToExpose" default="jndiName, jdbcProvider, datasourceHelperClassname, username, password, ConnectionPool, testConnection"  hidden="true" description="Properties that are not exposed to any python wsadmin script."/>
+        <property name="testConnection" kind="boolean"  default="false" required="false" />
+        <property name="testConnectionScript" default="was/datasource/test-connection-datasource.py" hidden="true" description="Python wsadmin script invoked to test the datasource."/>
+        <property name="testConnectionOrder" kind="integer" default="74" hidden="true" description = "The order in which a test connection step will be executed." />
+    </type-modification>
+
+
+</synthetic>
